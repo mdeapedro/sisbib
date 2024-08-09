@@ -21,7 +21,7 @@ que um livro for reservado por mais de um usuário simultaneamente.
 
 ### Inicialização do programa
 
-`java sislib [usuarios] [livros] [exemplares]`
+`java Sislib [usuarios] [livros] [exemplares]`
 
 ### Solicitar um empréstimo
 
@@ -55,7 +55,7 @@ por ponto-e-vírgula, seguindo a convenção abaixo:
 [codigo_do_usuario_1];[tipo_do_usuario_1];[nome_do_usuario_1]
 [codigo_do_usuario_2];[tipo_do_usuario_2];[nome_do_usuario_2]
 [codigo_do_usuario_3];[tipo_do_usuario_3];[nome_do_usuario_3]
-[...]
+...
 ```
 
 #### Exemplo
@@ -80,7 +80,7 @@ por ponto-e-vírgula, seguindo a convenção abaixo:
 [codigo_1];[nome_1];[editora_1];[autores_1];[edicao_1];[ano_publicacao_1]
 [codigo_2];[nome_2];[editora_2];[autores_2];[edicao_2];[ano_publicacao_2]
 [codigo_3];[nome_3];[editora_3];[autores_3];[edicao_3];[ano_publicacao_3]
-[...]
+...
 ```
 
 #### Exemplo
@@ -106,5 +106,5 @@ por ponto-e-vírgula, seguindo a convenção abaixo:
 [codigo_do_livro_1];[codigo_do_exemplar_1];[status_do_exemplar_1]
 [codigo_do_livro_2];[codigo_do_exemplar_2];[status_do_exemplar_2]
 [codigo_do_livro_3];[codigo_do_exemplar_3];[status_do_exemplar_3]
-[...]
+...
 ```
