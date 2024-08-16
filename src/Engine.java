@@ -4,9 +4,15 @@ import commands.*;
 public class Engine {
     private static Engine instance;
     private Scanner scanner;
+    private boolean running;
+    
     
     private Engine(Scanner scanner) {
         this.scanner = scanner;
+    }
+    
+    public boolean isRunning() {
+        return this.running;
     }
 
     public static Engine getInstance() {
@@ -16,7 +22,7 @@ public class Engine {
         }
         return instance;
     }
-
+    
     public void executeNextCommand() {
         ICommand command = this.getNextCommand();
         command.execute();

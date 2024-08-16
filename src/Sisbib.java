@@ -3,6 +3,12 @@ public class Sisbib {
         if (args.length != 3) {
             throw new IllegalArgumentException("Espera-se 3 argumentos: usuarios, livros e exemplares.");
         }
+
         LoadTestCases.loadTestCases(args[0], args[1], args[2]);
+
+        Engine engine = Engine.getInstance();
+        while (engine.isRunning()) {
+            engine.executeNextCommand();
+        }
     }
 }
