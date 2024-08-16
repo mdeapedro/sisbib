@@ -1,31 +1,27 @@
-import java.util.Scanner;
+package states;
+
 import commands.*;
+import java.util.Scanner;
 
-public class Engine {
-    private static Engine instance;
+public class ReadCommandState implements IState {
     private Scanner scanner;
-    private boolean running;
-    
-    
-    private Engine(Scanner scanner) {
-        this.scanner = scanner;
-    }
-    
-    public boolean isRunning() {
-        return this.running;
+
+    public ReadCommandState() {
+        this.scanner = new Scanner(System.in);
     }
 
-    public static Engine getInstance() {
-        if (instance == null) {
-            Scanner scanner = new Scanner(System.in);
-            instance = new Engine(scanner);
-        }
-        return instance;
+    public void onEnter() {  }
+
+    public void onTick() {
+        this.getNextCommand().execute();
     }
-    
-    public void executeNextCommand() {
-        ICommand command = this.getNextCommand();
-        command.execute();
+
+    public void onExit() {
+        this.scanner.close();
+    }
+
+    public boolean isFinal() {
+        return false;
     }
 
     private ICommand getNextCommand() {
