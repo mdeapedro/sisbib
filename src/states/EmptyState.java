@@ -7,7 +7,7 @@ public class EmptyState implements IState {
 
     public void onExit() { }
 
-    public boolean isFinal() {
+    public boolean isDone() {
         return true;
     }
 }

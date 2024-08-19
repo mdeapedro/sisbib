@@ -1,8 +1,9 @@
 package main;
+import java.util.ArrayList;
 import java.util.List;
 
+import states.EmptyState;
 import states.IState;
-import states.LoadTestCaseState;
 
 public class Sisbib {
     private static Sisbib instance;
@@ -11,20 +12,24 @@ public class Sisbib {
     private List<Book> books;
     private List<Copy> copies;
     
-    public void setUsers(List<IUser> users) {
-        this.users = users;
+    public void addUser(IUser user) {
+        this.users.add(user);
+    }
+    
+    public void addBook(Book book) {
+        this.books.add(book);
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public void setCopies(List<Copy> copies) {
-        this.copies = copies;
+    public void addCopy(Copy copy) {
+        this.copies.add(copy);
     }
 
     private Sisbib() {
-        this.state = new LoadTestCaseState();
+        this.state = new EmptyState();
+        this.users = new ArrayList<IUser>();
+        this.books = new ArrayList<Book>();
+        this.copies = new ArrayList<Copy>();
+
         this.state.onEnter();
     }
 
@@ -36,7 +41,7 @@ public class Sisbib {
     }
 
     public boolean isInFinalState() {
-        return this.state.isFinal();
+        return this.state.isDone();
     }
 
     public void setState(IState state) {
@@ -44,8 +49,10 @@ public class Sisbib {
         this.state = state;
         this.state.onEnter();
     }
-
-    public void tick() {
-        this.state.onTick();
+    
+    public void run() {
+        while (!this.state.isDone()) {
+            this.state.onTick();
+        }
     }
 }

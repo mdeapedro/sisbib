@@ -10,17 +10,25 @@ public class ReadCommandState implements IState {
         this.scanner = new Scanner(System.in);
     }
 
-    public void onEnter() {  }
+    public void onEnter() {
+        System.out.println();
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("                              SISBIB                            ");
+        System.out.println("----------------------------------------------------------------");
+        System.out.println();
+    }
 
     public void onTick() {
+        System.out.print("Digite um comando (emp, dev, res, obs, sai): ");
         this.getNextCommand().execute();
     }
 
     public void onExit() {
+        System.out.println("Sayonara! (^ . ^)");
         this.scanner.close();
     }
 
-    public boolean isFinal() {
+    public boolean isDone() {
         return false;
     }
 
