@@ -21,6 +21,7 @@ public class ReadCommandState implements IState {
     public void onTick() {
         System.out.print("Digite um comando (emp, dev, res, obs, sai): ");
         this.getNextCommand().execute();
+        System.out.println();
     }
 
     public void onExit() {
@@ -33,8 +34,8 @@ public class ReadCommandState implements IState {
     }
 
     private ICommand getNextCommand() {
-        String nextToken = this.scanner.next();
-        switch (nextToken) {
+        String tokens[] = this.scanner.nextLine().split(" ");
+        switch (tokens[0]) {
             case "emp":
                 return new EmpCommand();
             case "dev":
