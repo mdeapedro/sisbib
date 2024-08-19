@@ -1,4 +1,4 @@
-package main;
+package users;
 public class Postgraduate implements IUser {
     private int id;
     private String name;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import states.EmptyState;
 import states.IState;
+import users.IUser;
 
 public class Sisbib {
     private static Sisbib instance;

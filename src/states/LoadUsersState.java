@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import main.IUser;
-import main.Postgraduate;
-import main.Professor;
 import main.Sisbib;
-import main.Undergraduate;
+import users.IUser;
+import users.Postgraduate;
+import users.Professor;
+import users.Undergraduate;
 
 public class LoadUsersState implements IState{
     String users;

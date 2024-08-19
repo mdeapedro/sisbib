@@ -1,9 +1,9 @@
-package main;
-public class Professor implements IUser {
+package users;
+public class Undergraduate implements IUser {
     private int id;
     private String name;
-
-    public Professor(int id, String name) {
+    
+    public Undergraduate(int id, String name) {
         this.id = id;
         this.name = name;
     }
