@@ -1,5 +1,7 @@
 package states;
 
+import main.Sisbib;
+
 public class LoadTestCaseState implements IState {
     public void onEnter() { }
 
@@ -7,6 +9,7 @@ public class LoadTestCaseState implements IState {
         this.loadUsers();
         this.loadBooks();
         this.loadCopies();
+        Sisbib.getInstance().setState(new ReadCommandState());
     }
 
     public void onExit() { }
