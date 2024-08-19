@@ -1,8 +1,8 @@
-# sislib
+# sisbib
 
 Sistema de Biblioteca
 
-**sislib** é um programa escrito em Java que simula um sistema de biblioteca
+**sisbib** é um programa escrito em Java que simula um sistema de biblioteca
 universitário.
 
 Produzido para fins didáticos da disciplina Engenharia de Software 1 da
@@ -10,7 +10,7 @@ Universidade Federal da Bahia (UFBA), período 2024.1.
 
 ## Introdução
 
-**sislib** gerencia e mantém livros disponiveis em uma biblioteca acadêmica. Ele
+**sisbib** gerencia e mantém livros disponiveis em uma biblioteca acadêmica. Ele
 permite que três tipos de usuários (estudantes de graduação, estudantes de
 pós-graduação e professores) realizem empréstimo, devoluções ou reservem livros.
 
@@ -21,7 +21,7 @@ que um livro for reservado por mais de um usuário simultaneamente.
 
 ### Inicialização do programa
 
-`java sislib [usuarios] [livros] [exemplares]`
+`java sisbib [usuarios] [livros] [exemplares]`
 
 ### Solicitar um empréstimo
 
