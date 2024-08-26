@@ -5,14 +5,15 @@ public class Book {
     private String publisher;
     private String authors;
     private String edition;
+    private String releaseYear;
 
-    public Book(int id, String title, String publisher, String authors, String edition, String release_year) {
+    public Book(int id, String title, String publisher, String authors, String edition, String releaseYear) {
         this.id = id;
         this.title = title;
         this.publisher = publisher;
         this.authors = authors;
         this.edition = edition;
-        this.release_year = release_year;
+        this.releaseYear = releaseYear;
     }
 
     public int getId() {
@@ -23,5 +24,19 @@ public class Book {
         return this.title;
     }
 
-    private String release_year;
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getAuthors() {
+        return authors;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public String getReleaseYear() {
+        return releaseYear;
+    }
 }
