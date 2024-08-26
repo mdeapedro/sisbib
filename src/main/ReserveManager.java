@@ -8,14 +8,14 @@ import users.IUser;
 public class ReserveManager {
     private List<Reserve> reserves = new ArrayList<Reserve>();
     
-    public void addReserve(Reserve reserve) {
+    public void addReserve(Reserve reserve) throws ReserveManagerException {
         if (isReserved(reserve.getCopy())) {
             String message = "O exemplar ";
             message += reserve.getCopy().getBook().getTitle();
             message += " já foi reservado pelo usuário ";
             message += reserve.getUser().getName();
             message += ".";
-            throw new Error(message);
+            throw new ReserveManagerException(message);
         }
         
         if (getNumberOfUserReserves(reserve.getUser()) > reserve.getUser().getMaxNumberOfReserves()) {

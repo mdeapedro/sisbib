@@ -3,6 +3,7 @@ package commands;
 import main.Book;
 import main.Copy;
 import main.Reserve;
+import main.ReserveManagerException;
 import main.ReserveManager;
 import main.Sisbib;
 import users.IUser;
@@ -38,8 +39,8 @@ public class ResCommand implements ICommand {
             message += user.getName();
             message += " com sucesso.";
             System.out.println(message);
-        } catch (Error error) {
-            System.out.println(error.getMessage());
+        } catch (ReserveManagerException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
