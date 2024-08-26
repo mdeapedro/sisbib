@@ -26,7 +26,7 @@ public class ResCommand implements ICommand {
             String message = "Nenhum exemplar do livro '";
             message += book.getTitle();
             message += "' está disponível para reserva.";
-            System.err.println(message);
+            System.out.println(message);
             return;
         }
 
@@ -39,7 +39,7 @@ public class ResCommand implements ICommand {
             message += " com sucesso.";
             System.out.println(message);
         } catch (Error error) {
-            System.err.println(error.getMessage());
+            System.out.println(error.getMessage());
         }
     }
 }
