@@ -8,6 +8,6 @@ public class ErrorCommand implements ICommand {
     }
 
     public void execute() {
-        System.err.println(message);
+        System.out.println(message);
     }
 }
