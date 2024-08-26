@@ -23,9 +23,9 @@ public class ResCommand implements ICommand {
         
         Copy bookCopy = reserveManager.getAvaiableBookCopy(book);
         if (bookCopy == null) {
-            String message = "Todos os livros de título ";
+            String message = "Nenhum exemplar do livro '";
             message += book.getTitle();
-            message += " já foram emprestados.";
+            message += "' está disponível para reserva.";
             System.err.println(message);
             return;
         }
