@@ -2,6 +2,7 @@ package commands;
 
 import main.Book;
 import main.Copy;
+import main.Output;
 import main.Reserve;
 import main.ReserveManagerException;
 import main.ReserveManager;
@@ -24,23 +25,15 @@ public class ResCommand implements ICommand {
         
         Copy bookCopy = reserveManager.getAvaiableBookCopy(book);
         if (bookCopy == null) {
-            String message = "Nenhum exemplar do livro '";
-            message += book.getTitle();
-            message += "' está disponível para reserva.";
-            System.out.println(message);
+            Output.error("Nenhum exemplar do livro '", book.getTitle(), "' está disponível para reserva.");;
             return;
         }
 
         try {
             reserveManager.addReserve(new Reserve(user, bookCopy));
-            String message = "Livro '";
-            message += book.getTitle();
-            message += "' reservado ao usuário ";
-            message += user.getName();
-            message += " com sucesso.";
-            System.out.println(message);
+            Output.success("Livro '", book.getTitle(), "' reservado ao usuário ", user.getName(), " com sucesso.");
         } catch (ReserveManagerException e) {
-            System.out.println(e.getMessage());
+            Output.error(e.getMessage());
         }
     }
 }

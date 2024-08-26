@@ -1,5 +1,7 @@
 package commands;
 
+import main.Output;
+
 public class ErrorCommand implements ICommand {
     private String message;
 
@@ -8,6 +10,6 @@ public class ErrorCommand implements ICommand {
     }
 
     public void execute() {
-        System.out.println(message);
+        Output.error(message);
     }
 }
