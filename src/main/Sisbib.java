@@ -54,6 +54,10 @@ public class Sisbib {
         return bookCopies;
     }
     
+    public List<Book> getBooks() {
+        return books;
+    }
+    
     public ReserveManager getReserveManager() {
         return this.reserveManager;
     }

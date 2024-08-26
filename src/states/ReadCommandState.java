@@ -24,7 +24,7 @@ public class ReadCommandState implements IState {
     }
 
     public void onTick() {
-        System.out.print("Digite um comando (res, sai): ");
+        System.out.print("Digite um comando (res, liv, sai): ");
         this.getNextCommand().execute();
     }
 
@@ -47,6 +47,19 @@ public class ReadCommandState implements IState {
                     IUser user = getUser(args[1]);
                     Book book = getBook(args[2]);
                     return new ResCommand(user, book);
+                } catch (ReadCommandException e) {
+                    return new BadCommand(e.getMessage());
+                }
+            
+            case "liv":
+                if (args.length == 1) {
+                    return new LivAllCommand();
+                }
+                
+                try {
+                    assertArgsLength(args, 2);
+                    Book book = getBook(args[1]);
+                    return new LivCommand(book);
                 } catch (ReadCommandException e) {
                     return new BadCommand(e.getMessage());
                 }

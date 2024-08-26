@@ -68,6 +68,15 @@ public class ReserveManager {
         return null;
     }
     
+    public Reserve getReserveByCopy(Copy copy) {
+        for (Reserve reserve : reserves) {
+            if (reserve.getCopy().equals(copy)) {
+                return reserve;
+            }
+        }
+        return null;
+    }
+    
     private List<Copy> getReservedBookCopies(Book book) {
         List<Copy> reservedBookCopies = new ArrayList<Copy>();
         for (Reserve reserve : this.reserves) {
