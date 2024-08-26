@@ -48,7 +48,7 @@ public class ReadCommandState implements IState {
                     Book book = getBook(args[2]);
                     return new ResCommand(user, book);
                 } catch (ReadCommandException e) {
-                    return new BadCommand(e.getMessage());
+                    return new ErrorCommand(e.getMessage());
                 }
             
             case "liv":
@@ -61,7 +61,7 @@ public class ReadCommandState implements IState {
                     Book book = getBook(args[1]);
                     return new LivCommand(book);
                 } catch (ReadCommandException e) {
-                    return new BadCommand(e.getMessage());
+                    return new ErrorCommand(e.getMessage());
                 }
             
             case "sai":
@@ -69,14 +69,14 @@ public class ReadCommandState implements IState {
                     assertArgsLength(args, 1);
                     return new SaiCommand();
                 } catch (ReadCommandException e) {
-                    return new BadCommand(e.getMessage());
+                    return new ErrorCommand(e.getMessage());
                 }
 
             default:
                 String message = "'";
                 message += command;
                 message += "' não é um comando válido.";
-                return new BadCommand(message);
+                return new ErrorCommand(message);
         }
     }
     

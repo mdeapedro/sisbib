@@ -1,9 +1,9 @@
 package commands;
 
-public class BadCommand implements ICommand {
+public class ErrorCommand implements ICommand {
     private String message;
 
-    public BadCommand(String message) {
+    public ErrorCommand(String message) {
         this.message = message;
     }
 
