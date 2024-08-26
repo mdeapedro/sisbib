@@ -13,21 +13,22 @@ public class Sisbib {
     private List<Book> books;
     private List<Copy> copies;
     private ReserveManager reserveManager;
+    private LoanManager loanManager;
     
     public void addUser(IUser user) {
-        this.users.add(user);
+        users.add(user);
     }
     
     public void addBook(Book book) {
-        this.books.add(book);
+        books.add(book);
     }
 
     public void addCopy(Copy copy) {
-        this.copies.add(copy);
+        copies.add(copy);
     }
     
     public IUser getUserById(int userId) {
-        for (IUser user : this.users) {
+        for (IUser user : users) {
             if (user.getId() == userId) {
                 return user;
             }
@@ -36,7 +37,7 @@ public class Sisbib {
     }
 
     public Book getBookById(int bookId) {
-        for (Book book : this.books) {
+        for (Book book : books) {
             if (book.getId() == bookId) {
                 return book;
             }
@@ -59,18 +60,23 @@ public class Sisbib {
     }
     
     public ReserveManager getReserveManager() {
-        return this.reserveManager;
+        return reserveManager;
+    }
+
+    public LoanManager getLoanManager() {
+        return loanManager;
     }
 
     private Sisbib() {
-        this.state = new EmptyState();
-        this.users = new ArrayList<IUser>();
-        this.books = new ArrayList<Book>();
-        this.copies = new ArrayList<Copy>();
+        state = new EmptyState();
+        users = new ArrayList<IUser>();
+        books = new ArrayList<Book>();
+        copies = new ArrayList<Copy>();
 
-        this.reserveManager = new ReserveManager();
+        reserveManager = new ReserveManager();
+        loanManager = new LoanManager();
 
-        this.state.onEnter();
+        state.onEnter();
     }
 
     public static Sisbib getInstance() {
@@ -81,18 +87,18 @@ public class Sisbib {
     }
 
     public boolean isInFinalState() {
-        return this.state.isDone();
+        return state.isDone();
     }
 
     public void setState(IState state) {
-        this.state.onExit();
         this.state = state;
+        this.state.onExit();
         this.state.onEnter();
     }
     
     public void run() {
-        while (!this.state.isDone()) {
-            this.state.onTick();
+        while (!state.isDone()) {
+            state.onTick();
         }
     }
 }
