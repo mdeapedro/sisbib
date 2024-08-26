@@ -31,7 +31,7 @@ public class LoadUsersState implements IState{
     }
     
     public void onExit() {
-        System.out.println(numberOfUsersLoaded + " usuário(s) carregado(s).");
+        System.out.println(" " + numberOfUsersLoaded + " usuário(s) carregado(s).");
     }
     
     public boolean isDone() {
