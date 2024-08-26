@@ -1,6 +1,10 @@
 package states;
 
 import commands.*;
+import main.Book;
+import main.Sisbib;
+import users.IUser;
+
 import java.util.Scanner;
 
 public class ReadCommandState implements IState {
@@ -34,20 +38,53 @@ public class ReadCommandState implements IState {
     }
 
     private ICommand getNextCommand() {
-        String tokens[] = this.scanner.nextLine().split(" ");
-        switch (tokens[0]) {
+        Sisbib sisbib = Sisbib.getInstance();
+
+        String nextLine = this.scanner.nextLine();
+
+        if (nextLine.equals("sai")) {
+            return new SaiCommand();
+        }
+        String[] tokens = nextLine.split(" ");
+        String command = tokens[0];
+
+        if (tokens.length != 3) {
+            String message = "Espera-se um comando seguido do id do usuário e id do livro.";
+            return new BadCommand(message);
+        }
+
+        int userId = Integer.parseInt(tokens[1]);
+        int bookId = Integer.parseInt(tokens[2]);
+        
+        IUser user = sisbib.getUserById(userId);
+        if (user == null) {
+            String message = "Usuário de id ";
+            message += userId;
+            message += " não encontrado.";
+            return new BadCommand(message);
+        }
+        
+        Book book = sisbib.getBookById(bookId);
+
+        if (book == null) {
+            String message = "Livro de id ";
+            message += bookId;
+            message += " não encontrado.";
+            return new BadCommand(message);
+        }
+
+        switch (command) {
             case "emp":
                 return new EmpCommand();
             case "dev":
                 return new DevCommand();
             case "res":
-                return new ResCommand();
+                return new ResCommand(user, book);
             case "obs":
                 return new ObsCommand();
-            case "sai":
-                return new SaiCommand();
             default:
-                return new BadTokenCommand();
+                String message = "Comando não identificado.";
+                return new BadCommand(message);
         }
     }
 }

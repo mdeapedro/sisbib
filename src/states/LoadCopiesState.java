@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import main.Book;
 import main.Copy;
 import main.Sisbib;
 
@@ -42,9 +43,10 @@ public class LoadCopiesState implements IState{
             Scanner scanner = new Scanner(copiesFile);
             while (scanner.hasNextLine()) {
                 String[] copyArgs = scanner.nextLine().split(";");
-                int id = Integer.parseInt(copyArgs[0]);
-                int bookId = Integer.parseInt(copyArgs[1]);
-                Copy copy = new Copy(id, bookId);
+                int bookId = Integer.parseInt(copyArgs[0]);
+                Book book = sisbib.getBookById(bookId);
+                int id = Integer.parseInt(copyArgs[1]);
+                Copy copy = new Copy(id, book);
                 sisbib.addCopy(copy);
                 this.numberOfCopiesLoaded++;
                 System.out.print(".");

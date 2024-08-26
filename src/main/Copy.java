@@ -1,18 +1,18 @@
 package main;
 public class Copy {
     private int id;
-    private int bookId;
+    private Book book;
 
-    public Copy(int id, int bookId) {
+    public Copy(int id, Book book) {
         this.id = id;
-        this.bookId = bookId;
+        this.book = book;
     }
 
     public int getId() {
         return this.id;
     }
 
-    public int getBookId() {
-        return this.bookId;
+    public Book getBook() {
+        return this.book;
     }
 }

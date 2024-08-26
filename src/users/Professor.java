@@ -2,6 +2,7 @@ package users;
 public class Professor implements IUser {
     private int id;
     private String name;
+    private int maxNumberOfReserves = 3;
 
     public Professor(int id, String name) {
         this.id = id;
@@ -14,5 +15,9 @@ public class Professor implements IUser {
     
     public String getName() {
         return this.name;
+    }
+    
+    public int getMaxNumberOfReserves() {
+        return this.maxNumberOfReserves;
     }
 }
