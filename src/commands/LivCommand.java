@@ -39,10 +39,6 @@ public class LivCommand implements ICommand {
             } else {
                 System.out.println("Disponível");
             }
-            
-
-            // reservedBookCopies.
-            // reserveManager.isReserved(bookCopy)
         }
     }
 }
