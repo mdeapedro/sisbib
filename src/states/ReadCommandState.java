@@ -2,6 +2,7 @@ package states;
 
 import commands.*;
 import main.Book;
+import main.ReadCommandException;
 import main.Sisbib;
 import users.IUser;
 
@@ -23,9 +24,8 @@ public class ReadCommandState implements IState {
     }
 
     public void onTick() {
-        System.out.print("Digite um comando (emp, dev, res, obs, sai): ");
+        System.out.print("Digite um comando (res, sai): ");
         this.getNextCommand().execute();
-        System.out.println();
     }
 
     public void onExit() {
@@ -36,55 +36,89 @@ public class ReadCommandState implements IState {
     public boolean isDone() {
         return false;
     }
-
+    
     private ICommand getNextCommand() {
+        String[] args = this.scanner.nextLine().split(" ");
+        String command = args[0];
+        switch (command) {
+            case "res":
+                try {
+                    assertArgsLength(args, 3);
+                    IUser user = getUser(args[1]);
+                    Book book = getBook(args[2]);
+                    return new ResCommand(user, book);
+                } catch (ReadCommandException e) {
+                    return new BadCommand(e.getMessage());
+                }
+            
+            case "sai":
+                try {
+                    assertArgsLength(args, 1);
+                    return new SaiCommand();
+                } catch (ReadCommandException e) {
+                    return new BadCommand(e.getMessage());
+                }
+
+            default:
+                String message = "'";
+                message += command;
+                message += "' não é um comando válido.";
+                return new BadCommand(message);
+        }
+    }
+    
+    private IUser getUser(String userIdString) throws ReadCommandException {
         Sisbib sisbib = Sisbib.getInstance();
-
-        String nextLine = this.scanner.nextLine();
-
-        if (nextLine.equals("sai")) {
-            return new SaiCommand();
-        }
-        String[] tokens = nextLine.split(" ");
-        String command = tokens[0];
-
-        if (tokens.length != 3) {
-            String message = "Espera-se um comando seguido do id do usuário e id do livro.";
-            return new BadCommand(message);
+        int userId;
+        try {
+            userId = Integer.parseInt(userIdString);
+        } catch (NumberFormatException e) {
+            String message = "codigo_usuario deve ser inteiro.";
+            throw new ReadCommandException(message);
         }
 
-        int userId = Integer.parseInt(tokens[1]);
-        int bookId = Integer.parseInt(tokens[2]);
-        
         IUser user = sisbib.getUserById(userId);
+
         if (user == null) {
-            String message = "Usuário de id ";
+            String message = "Nenhum usuário com id '";
             message += userId;
-            message += " não encontrado.";
-            return new BadCommand(message);
+            message += "' cadastrado.";
+            throw new ReadCommandException(message);
         }
         
+        return user;
+    }
+    
+    private Book getBook(String bookIdString) throws ReadCommandException {
+        Sisbib sisbib = Sisbib.getInstance();
+        int bookId;
+        try {
+            bookId = Integer.parseInt(bookIdString);
+        } catch (NumberFormatException e) {
+            String message = "codigo_livro deve ser inteiro.";
+            throw new ReadCommandException(message);
+        }
+
         Book book = sisbib.getBookById(bookId);
 
         if (book == null) {
-            String message = "Livro de id ";
+            String message = "Nenhum livro com id '";
             message += bookId;
-            message += " não encontrado.";
-            return new BadCommand(message);
+            message += "' cadastrado.";
+            throw new ReadCommandException(message);
         }
-
-        switch (command) {
-            case "emp":
-                return new EmpCommand();
-            case "dev":
-                return new DevCommand();
-            case "res":
-                return new ResCommand(user, book);
-            case "obs":
-                return new ObsCommand();
-            default:
-                String message = "Comando não identificado.";
-                return new BadCommand(message);
+        
+        return book;
+    }
+    
+    private void assertArgsLength(String[] args, int expectedArgsLength) throws ReadCommandException {
+        if (args.length != expectedArgsLength) {
+            String message = "O comando '";
+            message += args[0];
+            message += "' espera ";
+            message += expectedArgsLength - 1;
+            message += " argumentos.";
+            throw new ReadCommandException(message);
         }
     }
 }
