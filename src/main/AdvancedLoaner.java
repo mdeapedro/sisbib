@@ -9,14 +9,13 @@ import java.time.LocalDate;
 
 import users.IUser;
 
-public class BasicLoaner implements ILoaner {
+public class AdvancedLoaner implements ILoaner {
     private IUser user;
     private int maxNumberOfLoans;
     private int daysToReturn;
     
-    public BasicLoaner(IUser user, int maxNumberOfLoans, int daysToReturn) {
+    public AdvancedLoaner(IUser user, int daysToReturn) {
         this.user = user;
-        this.maxNumberOfLoans = maxNumberOfLoans;
         this.daysToReturn = daysToReturn;
     }
 
@@ -53,13 +52,6 @@ public class BasicLoaner implements ILoaner {
             }
         }
         
-        if (userLoans.size() >= maxNumberOfLoans) {
-            String message = "O usuário atingiu o limite máximo de empréstimos (";
-            message += maxNumberOfLoans;
-            message += ")";
-            throw new LoanerException(message);
-        }
-        
         List<Reserve> userReserves = reserveManager.getUserReserves(user);
         for (Reserve reserve : userReserves) {
             if (reserve.getCopy().getBook().equals(book)) {
@@ -84,9 +76,12 @@ public class BasicLoaner implements ILoaner {
             }
         }
         
-        String message = "Todos os exemplares do livro '";
-        message += book.getTitle();
-        message += "' já estão reservados.";
-        throw new LoanerException(message);
+        Copy bookToLoan = avaiableBookCopies.getFirst();
+        reserveManager.removeReserve(reserveManager.getReserveByCopy(bookToLoan));
+        try {
+            loanManager.addLoan(new Loan(bookToLoan, user, LocalDate.now().plusDays(daysToReturn)));
+        } catch (LoanManagerException e) {
+            throw new LoanerException(e.getMessage());
+        }
     }
 }
