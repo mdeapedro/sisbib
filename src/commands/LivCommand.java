@@ -4,6 +4,8 @@ import java.util.List;
 
 import main.Book;
 import main.Copy;
+import main.Loan;
+import main.LoanManager;
 import main.Output;
 import main.Reserve;
 import main.ReserveManager;
@@ -18,6 +20,7 @@ public class LivCommand implements ICommand {
 
     public void execute() {
         Sisbib sisbib = Sisbib.getInstance();
+        LoanManager loanManager = sisbib.getLoanManager();
         ReserveManager reserveManager = sisbib.getReserveManager();
 
         Output.info("Consulta do livro de código ", Integer.toString(book.getId()), ":");
@@ -29,9 +32,12 @@ public class LivCommand implements ICommand {
         List<Copy> bookCopies = sisbib.getBookCopies(book);
 
         for (Copy bookCopy : bookCopies) {
+            Loan loan = loanManager.getLoanByCopy(bookCopy);
             Reserve reserve = reserveManager.getReserveByCopy(bookCopy);
-            
-            if (reserve != null) {
+
+            if (loan != null) {
+                Output.info(Integer.toString(bookCopy.getId()), "; Emprestado para ", loan.getUser().getName());
+            } else if (reserve != null) {
                 Output.info(Integer.toString(bookCopy.getId()), "; Reservado para ", reserve.getUser().getName());
             } else {
                 Output.info(Integer.toString(bookCopy.getId()), "; Disponível");

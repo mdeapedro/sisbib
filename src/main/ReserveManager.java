@@ -9,11 +9,12 @@ public class ReserveManager {
     private List<Reserve> reserves = new ArrayList<Reserve>();
     
     public void addReserve(Reserve reserve) throws ReserveManagerException {
-        if (isReserved(reserve.getCopy())) {
+        Reserve copyReserve = getReserveByCopy(reserve.getCopy());
+        if (copyReserve != null) {
             String message = "O exemplar ";
-            message += reserve.getCopy().getBook().getTitle();
+            message += copyReserve.getCopy().getBook().getTitle();
             message += " já foi reservado pelo usuário ";
-            message += reserve.getUser().getName();
+            message += copyReserve.getUser().getName();
             message += ".";
             throw new ReserveManagerException(message);
         }
@@ -26,6 +27,10 @@ public class ReserveManager {
         }
 
         reserves.add(reserve);
+    }
+    
+    public void removeReserve(Reserve reserve) {
+        reserves.remove(reserve);
     }
     
     public boolean isReserved(Copy copy) {
@@ -75,6 +80,16 @@ public class ReserveManager {
             }
         }
         return null;
+    }
+    
+    public List<Reserve> getUserReserves(IUser user) {
+        List<Reserve> userReserves = new ArrayList<>();
+        for (Reserve reserve : reserves) {
+            if (reserve.getUser().equals(user)) {
+                userReserves.add(reserve);
+            }
+        }
+        return userReserves;
     }
     
     private List<Copy> getReservedBookCopies(Book book) {

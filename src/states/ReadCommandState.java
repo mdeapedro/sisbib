@@ -38,7 +38,14 @@ public class ReadCommandState implements IState {
     }
     
     private ICommand getNextCommand() {
-        String[] args = this.scanner.nextLine().split(" ");
+        String args[];
+        try {
+            args = this.scanner.nextLine().split(" ");
+        } catch (IllegalStateException e) {
+            System.err.println(e.getMessage());
+
+            throw e;
+        }
         String command = args[0];
         switch (command) {
             case "res":
