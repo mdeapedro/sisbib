@@ -23,6 +23,10 @@ public class LoanManager {
         loans.add(loan);
     }
     
+    public void removeLoan(Loan loan) {
+        loans.remove(loan);
+    }
+    
     public List<Loan> getBookLoans(Book book) {
         List<Loan> bookLoans = new ArrayList<>();
         for (Loan loan : loans) {
@@ -55,6 +59,16 @@ public class LoanManager {
     public Loan getLoanByCopy(Copy copy) {
         for (Loan loan : loans) {
             if (loan.getCopy().equals(copy)) {
+                return loan;
+            }
+        }
+        return null;
+    }
+    
+    public Loan getLoanByUserAndBook(IUser user, Book book) {
+        List<Loan> userLoans = getUserLoans(user);
+        for (Loan loan : userLoans) {
+            if (loan.getCopy().getBook().equals(book)) {
                 return loan;
             }
         }
