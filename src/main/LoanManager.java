@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.LoanManagerException;
 import users.IUser;
 
 public class LoanManager {
