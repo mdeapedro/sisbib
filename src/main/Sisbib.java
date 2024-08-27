@@ -91,8 +91,8 @@ public class Sisbib {
     }
 
     public void setState(IState state) {
-        this.state = state;
         this.state.onExit();
+        this.state = state;
         this.state.onEnter();
     }
     
