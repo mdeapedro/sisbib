@@ -8,7 +8,9 @@ import users.IUser;
 public class LoanHistoryManager {
     private List<LoanHistory> loanHistories = new ArrayList<>();
 
-    public LoanHistoryManager(LoanHistory loanHistory) {
+    public LoanHistoryManager() { }
+    
+    public void addLoanHistory(LoanHistory loanHistory) {
         loanHistories.add(loanHistory);
     }
     
