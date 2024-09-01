@@ -3,7 +3,6 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-import commands.ErrorCommand;
 import exceptions.LoanManagerException;
 import exceptions.LoanerException;
 
@@ -13,7 +12,6 @@ import users.IUser;
 
 public class AdvancedLoaner implements ILoaner {
     private IUser user;
-    private int maxNumberOfLoans;
     private int daysToReturn;
     
     public AdvancedLoaner(IUser user, int daysToReturn) {
