@@ -6,6 +6,7 @@ import java.util.List;
 
 import main.Loan;
 import main.LoanHistory;
+import main.MockDate;
 import main.Output;
 import main.Reserve;
 import main.Sisbib;
@@ -73,12 +74,19 @@ public class UsuCommand implements ICommand {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         int index = 1;
         for (Loan loan : userLoans) {
+            long overdue = MockDate.now().toEpochDay() - loan.getReturnDate().toEpochDay();
+            String overdueInfo;
+            if (overdue > 0) {
+                overdueInfo = " (Atraso!)";
+            } else {
+                overdueInfo = "";
+            }
             String indexString = Integer.toString(index);
             String indexSpacing = " ".repeat(indexString.length());
             Output.info();
             Output.info(indexString, " ─┬─ ", loan.getCopy().getBook().getTitle());
             Output.info(indexSpacing, "  ├─ Solicitado em: ", loan.getCreationDate().format(formatter));
-            Output.info(indexSpacing, "  └─ Devolução para: ", loan.getReturnDate().format(formatter));
+            Output.info(indexSpacing, "  └─ Devolução para: ", loan.getReturnDate().format(formatter), overdueInfo);
             ++index;
         }
     }
