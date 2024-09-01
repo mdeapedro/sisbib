@@ -12,10 +12,10 @@ public class Reserve {
     }
     
     public IUser getUser() {
-        return this.user;
+        return user;
     }
     
     public Copy getCopy() {
-        return this.copy;
+        return copy;
     }
 }

@@ -17,11 +17,11 @@ public class Book {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public String getPublisher() {

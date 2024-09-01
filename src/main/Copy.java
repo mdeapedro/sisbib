@@ -9,10 +9,10 @@ public class Copy {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public Book getBook() {
-        return this.book;
+        return book;
     }
 }
