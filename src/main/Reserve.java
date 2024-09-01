@@ -12,7 +12,7 @@ public class Reserve {
     public Reserve(IUser user, Copy copy) {
         this.user = user;
         this.copy = copy;
-        creationDate = LocalDate.now();
+        creationDate = MockDate.now();
     }
     
     public IUser getUser() {

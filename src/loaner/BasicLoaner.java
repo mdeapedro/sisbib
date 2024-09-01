@@ -9,11 +9,10 @@ import main.Book;
 import main.Copy;
 import main.Loan;
 import main.LoanManager;
+import main.MockDate;
 import main.Reserve;
 import main.ReserveManager;
 import main.Sisbib;
-
-import java.time.LocalDate;
 
 import users.IUser;
 
@@ -56,7 +55,7 @@ public class BasicLoaner implements ILoaner {
         }
         
         for (Loan loan : userLoans) {
-            if (LocalDate.now().isAfter(loan.getReturnDate())) {
+            if (MockDate.now().isAfter(loan.getReturnDate())) {
                 throw new LoanerException("O usuário tem empréstimos vencidos. Regularize sua situação para solicitar novos empréstimos.");
             }
         }
@@ -73,7 +72,7 @@ public class BasicLoaner implements ILoaner {
             if (reserve.getCopy().getBook().equals(book)) {
                 reserveManager.removeReserve(reserve);
                 try {
-                    loanManager.createLoan(new Loan(reserve.getCopy(), user, LocalDate.now().plusDays(daysToReturn)));
+                    loanManager.createLoan(new Loan(reserve.getCopy(), user, MockDate.now().plusDays(daysToReturn)));
                 } catch (LoanManagerException e) {
                     throw new LoanerException(e.getMessage());
                 }
@@ -84,7 +83,7 @@ public class BasicLoaner implements ILoaner {
         for (Copy bookCopy : avaiableBookCopies) {
             if (!reserveManager.isReserved(bookCopy)) {
                 try {
-                    loanManager.createLoan(new Loan(bookCopy, user, LocalDate.now().plusDays(daysToReturn)));
+                    loanManager.createLoan(new Loan(bookCopy, user, MockDate.now().plusDays(daysToReturn)));
                 } catch (LoanManagerException e) {
                     throw new LoanerException(e.getMessage());
                 }

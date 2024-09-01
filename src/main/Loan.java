@@ -14,7 +14,7 @@ public class Loan {
         this.copy = copy;
         this.user = user;
         this.returnDate = returnDate;
-        creationDate = LocalDate.now();
+        creationDate = MockDate.now();
     }
 
     public Copy getCopy() {

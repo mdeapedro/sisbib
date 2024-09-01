@@ -1,6 +1,5 @@
 package main;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class LoanManager {
     
     public void returnLoan(Loan loan) {
         LoanHistoryManager loanHistoryManager = Sisbib.getInstance().getLoanHistoryManager();
-        LoanHistory loanHistory = new LoanHistory(loan, LocalDate.now());
+        LoanHistory loanHistory = new LoanHistory(loan, MockDate.now());
         loans.remove(loan);
         loanHistoryManager.addLoanHistory(loanHistory);
     }
