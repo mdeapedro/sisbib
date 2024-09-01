@@ -28,6 +28,9 @@ public class ReserveManager {
         }
 
         reserves.add(reserve);
+        if (getReservedBookCopies(reserve.getCopy().getBook()).size() >= 2) {
+            Sisbib.getInstance().getSimultaneousReservesNotifier().updateAll(reserve.getCopy().getBook());
+        }
     }
     
     public void removeReserve(Reserve reserve) {

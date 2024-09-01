@@ -15,6 +15,7 @@ public class Sisbib {
     private ReserveManager reserveManager;
     private LoanManager loanManager;
     private LoanHistoryManager loanHistoryManager;
+    private SimultaneousReservesNotifier simultaneousReservesNotifier;
 
     private Sisbib() {
         state = new EmptyState();
@@ -25,7 +26,7 @@ public class Sisbib {
         reserveManager = new ReserveManager();
         loanManager = new LoanManager();
         loanHistoryManager = new LoanHistoryManager();
-
+        simultaneousReservesNotifier = new SimultaneousReservesNotifier();
         state.onEnter();
     }
 
@@ -94,6 +95,10 @@ public class Sisbib {
     
     public LoanHistoryManager getLoanHistoryManager() {
         return loanHistoryManager;
+    }
+
+    public SimultaneousReservesNotifier getSimultaneousReservesNotifier() {
+        return simultaneousReservesNotifier;
     }
 
     public boolean isInFinalState() {

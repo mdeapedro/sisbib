@@ -3,6 +3,8 @@ package states;
 import commands.*;
 import exceptions.ReadCommandException;
 import main.Book;
+import main.INotifiable;
+import main.IObserver;
 import main.Sisbib;
 import users.IUser;
 
@@ -24,7 +26,7 @@ public class ReadCommandState implements IState {
     }
 
     public void onTick() {
-        System.out.print("Digite um comando (emp, res, dev, liv, usu, sai): ");
+        System.out.print("Digite um comando (emp, res, dev, obs, liv, usu, ntf, sai): ");
         this.getNextCommand().execute();
     }
 
@@ -56,6 +58,17 @@ public class ReadCommandState implements IState {
                 } catch (ReadCommandException e) {
                     return new ErrorCommand(e.getMessage());
                 }
+
+            case "res":
+                try {
+                    assertArgsLength(args, 3, "codigo_do_usuario", "codigo_do_livro");
+                    IUser user = getUser(args[1]);
+                    Book book = getBook(args[2]);
+                    return new ResCommand(user, book);
+                } catch (ReadCommandException e) {
+                    return new ErrorCommand(e.getMessage());
+                }
+
             case "dev":
                 try {
                     assertArgsLength(args, 3, "codigo_do_usuario", "codigo_do_livro");
@@ -65,12 +78,16 @@ public class ReadCommandState implements IState {
                 } catch (ReadCommandException e) {
                     return new ErrorCommand(e.getMessage());
                 }
-            case "res":
+
+            case "obs":
                 try {
                     assertArgsLength(args, 3, "codigo_do_usuario", "codigo_do_livro");
                     IUser user = getUser(args[1]);
                     Book book = getBook(args[2]);
-                    return new ResCommand(user, book);
+                    if (!(user instanceof IObserver)) {
+                        return new ErrorCommand("O usuário não tem essa capacidade.");
+                    }
+                    return new ObsCommand((IObserver)user, book);
                 } catch (ReadCommandException e) {
                     return new ErrorCommand(e.getMessage());
                 }
@@ -97,6 +114,18 @@ public class ReadCommandState implements IState {
                     assertArgsLength(args, 2, "codigo_do_livro");
                     Book book = getBook(args[1]);
                     return new LivCommand(book);
+                } catch (ReadCommandException e) {
+                    return new ErrorCommand(e.getMessage());
+                }
+
+            case "ntf":
+                try {
+                    assertArgsLength(args, 2, "codigo_do_usuario");
+                    IUser user = getUser(args[1]);
+                    if (!(user instanceof INotifiable)) {
+                        return new ErrorCommand("O usuário não tem essa capacidade.");
+                    }
+                    return new NtfCommand((INotifiable)user);
                 } catch (ReadCommandException e) {
                     return new ErrorCommand(e.getMessage());
                 }
