@@ -1,10 +1,17 @@
-package main;
+package loaner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.LoanManagerException;
 import exceptions.LoanerException;
+import main.Book;
+import main.Copy;
+import main.Loan;
+import main.LoanManager;
+import main.Reserve;
+import main.ReserveManager;
+import main.Sisbib;
 
 import java.time.LocalDate;
 

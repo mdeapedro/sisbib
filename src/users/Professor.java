@@ -1,7 +1,7 @@
 package users;
 
-import main.AdvancedLoaner;
-import main.ILoaner;
+import loaner.AdvancedLoaner;
+import loaner.ILoaner;
 
 public class Professor implements IUser {
     private int id;

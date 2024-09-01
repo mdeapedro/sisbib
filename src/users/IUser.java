@@ -1,6 +1,6 @@
 package users;
 
-import main.ILoaner;
+import loaner.ILoaner;
 
 public interface IUser {
     int getId();
