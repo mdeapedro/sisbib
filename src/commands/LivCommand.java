@@ -36,12 +36,13 @@ public class LivCommand implements ICommand {
             Loan loan = loanManager.getLoanByCopy(bookCopy);
             Reserve reserve = reserveManager.getReserveByCopy(bookCopy);
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             if (loan != null) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 Output.info(Integer.toString(bookCopy.getId()), "; Emprestado para ", loan.getUser().getName(), " até ",
                         loan.getReturnDate().format(formatter));
             } else if (reserve != null) {
-                Output.info(Integer.toString(bookCopy.getId()), "; Reservado para ", reserve.getUser().getName());
+                Output.info(Integer.toString(bookCopy.getId()), "; Reservado em ",
+                        reserve.getCreationDate().format(formatter), " para ", reserve.getUser().getName());
             } else {
                 Output.info(Integer.toString(bookCopy.getId()), "; Disponível");
             }
