@@ -59,6 +59,10 @@ public class Sisbib {
         return books;
     }
     
+    public List<IUser> getUsers() {
+        return users;
+    }
+    
     public ReserveManager getReserveManager() {
         return reserveManager;
     }
