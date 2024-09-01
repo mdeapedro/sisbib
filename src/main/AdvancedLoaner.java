@@ -78,7 +78,7 @@ public class AdvancedLoaner implements ILoaner {
             }
         }
         
-        Copy bookToLoan = avaiableBookCopies.getFirst();
+        Copy bookToLoan = avaiableBookCopies.get(0);
         reserveManager.removeReserve(reserveManager.getReserveByCopy(bookToLoan));
         try {
             loanManager.addLoan(new Loan(bookToLoan, user, LocalDate.now().plusDays(daysToReturn)));
