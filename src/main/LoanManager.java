@@ -9,7 +9,7 @@ import users.IUser;
 public class LoanManager {
     List<Loan> loans = new ArrayList<Loan>();
     
-    public void addLoan(Loan loan) throws LoanManagerException {
+    public void createLoan(Loan loan) throws LoanManagerException {
         Loan copyLoan = getLoanByCopy(loan.getCopy());
         
         if (copyLoan != null) {
@@ -24,7 +24,7 @@ public class LoanManager {
         loans.add(loan);
     }
     
-    public void removeLoan(Loan loan) {
+    public void returnLoan(Loan loan) {
         loans.remove(loan);
     }
     

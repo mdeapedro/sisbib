@@ -73,7 +73,7 @@ public class BasicLoaner implements ILoaner {
             if (reserve.getCopy().getBook().equals(book)) {
                 reserveManager.removeReserve(reserve);
                 try {
-                    loanManager.addLoan(new Loan(reserve.getCopy(), user, LocalDate.now().plusDays(daysToReturn)));
+                    loanManager.createLoan(new Loan(reserve.getCopy(), user, LocalDate.now().plusDays(daysToReturn)));
                 } catch (LoanManagerException e) {
                     throw new LoanerException(e.getMessage());
                 }
@@ -84,7 +84,7 @@ public class BasicLoaner implements ILoaner {
         for (Copy bookCopy : avaiableBookCopies) {
             if (!reserveManager.isReserved(bookCopy)) {
                 try {
-                    loanManager.addLoan(new Loan(bookCopy, user, LocalDate.now().plusDays(daysToReturn)));
+                    loanManager.createLoan(new Loan(bookCopy, user, LocalDate.now().plusDays(daysToReturn)));
                 } catch (LoanManagerException e) {
                     throw new LoanerException(e.getMessage());
                 }

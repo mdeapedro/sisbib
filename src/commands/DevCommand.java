@@ -26,7 +26,7 @@ public class DevCommand implements ICommand {
             return;
         }
 
-        loanManager.removeLoan(loan);
+        loanManager.returnLoan(loan);
         Output.success("O usuário '", user.getName(), "' devolveu o livro '", book.getTitle(), "' com sucesso");
     }
 }
