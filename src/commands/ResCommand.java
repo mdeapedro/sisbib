@@ -3,6 +3,7 @@ package commands;
 import exceptions.ReserveManagerException;
 import main.Book;
 import main.Copy;
+import main.Loan;
 import main.Output;
 import main.Reserve;
 import main.ReserveManager;
@@ -27,6 +28,13 @@ public class ResCommand implements ICommand {
         if (bookCopy == null) {
             Output.error("Nenhum exemplar do livro '", book.getTitle(), "' está disponível para reserva.");;
             return;
+        }
+        
+        for (Loan userLoan : sisbib.getLoanManager().getUserLoans(user)) {
+            if (userLoan.getCopy().getBook().equals(book)) {
+                Output.error("O usuário já possui um empréstimo em aberto do livro solicitado.");
+                return;
+            }
         }
 
         try {
