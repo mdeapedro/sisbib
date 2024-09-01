@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.SimultaneousReservesNotifierException;
 import main.Book;
 import main.IObserver;
 import main.Output;
@@ -15,7 +16,12 @@ public class ObsCommand implements ICommand {
     }
 
     public void execute() {
-        Sisbib.getInstance().getSimultaneousReservesNotifier().subscribe(observer, book);
+        try {
+            Sisbib.getInstance().getSimultaneousReservesNotifier().subscribe(observer, book);
+        } catch (SimultaneousReservesNotifierException e) {
+            Output.error(e.getMessage());
+            return;
+        }
         Output.success("Inscrição realizada com sucesso.");
     }
 }

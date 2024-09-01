@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import exceptions.SimultaneousReservesNotifierException;
+
 public class SimultaneousReservesNotifier {
     Map<Book, List<IObserver>> bookObservers = new HashMap<>();
     
     public SimultaneousReservesNotifier() { }
     
-    public void subscribe(IObserver observer, Book book) {
+    public void subscribe(IObserver observer, Book book) throws SimultaneousReservesNotifierException {
         bookObservers.putIfAbsent(book, new ArrayList<>());
+        if (bookObservers.get(book).contains(observer)) {
+            throw new SimultaneousReservesNotifierException("Usuário já cadastrado.");
+        }
         bookObservers.get(book).add(observer);
     }
     
