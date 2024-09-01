@@ -49,7 +49,7 @@ public class ReadCommandState implements IState {
         switch (command) {
             case "emp":
                 try {
-                    assertArgsLength(args, 3);
+                    assertArgsLength(args, 3, "codigo_do_usuario", "codigo_do_livro");
                     IUser user = getUser(args[1]);
                     Book book = getBook(args[2]);
                     return new EmpCommand(user, book);
@@ -58,7 +58,7 @@ public class ReadCommandState implements IState {
                 }
             case "dev":
                 try {
-                    assertArgsLength(args, 3);
+                    assertArgsLength(args, 3, "codigo_do_usuario", "codigo_do_livro");
                     IUser user = getUser(args[1]);
                     Book book = getBook(args[2]);
                     return new DevCommand(user, book);
@@ -67,7 +67,7 @@ public class ReadCommandState implements IState {
                 }
             case "res":
                 try {
-                    assertArgsLength(args, 3);
+                    assertArgsLength(args, 3, "codigo_do_usuario", "codigo_do_livro");
                     IUser user = getUser(args[1]);
                     Book book = getBook(args[2]);
                     return new ResCommand(user, book);
@@ -81,7 +81,7 @@ public class ReadCommandState implements IState {
                 }
                 
                 try {
-                    assertArgsLength(args, 2);
+                    assertArgsLength(args, 2, "codigo_do_usuario");
                     IUser user = getUser(args[1]);
                     return new UsuCommand(user);
                 } catch (ReadCommandException e) {
@@ -94,7 +94,7 @@ public class ReadCommandState implements IState {
                 }
                 
                 try {
-                    assertArgsLength(args, 2);
+                    assertArgsLength(args, 2, "codigo_do_livro");
                     Book book = getBook(args[1]);
                     return new LivCommand(book);
                 } catch (ReadCommandException e) {
@@ -107,6 +107,19 @@ public class ReadCommandState implements IState {
                     return new SaiCommand();
                 } catch (ReadCommandException e) {
                     return new ErrorCommand(e.getMessage());
+                }
+
+            case "mock":
+                try {
+                    assertArgsLength(args, 4, "dia", "mes", "ano");
+                    int day = Integer.parseInt(args[1]);
+                    int month = Integer.parseInt(args[2]);
+                    int year = Integer.parseInt(args[3]);
+                    return new MockCommand(day, month, year);
+                } catch (ReadCommandException e) {
+                    return new ErrorCommand(e.getMessage());
+                } catch (NumberFormatException e) {
+                    return new ErrorCommand("dia, mes e ano devem ser inteiros.");
                 }
 
             default:
@@ -161,13 +174,19 @@ public class ReadCommandState implements IState {
         return book;
     }
     
-    private void assertArgsLength(String[] args, int expectedArgsLength) throws ReadCommandException {
+    private void assertArgsLength(String[] args, int expectedArgsLength, String ...argsNames) throws ReadCommandException {
         if (args.length != expectedArgsLength) {
             String message = "O comando '";
             message += args[0];
             message += "' espera ";
             message += expectedArgsLength - 1;
-            message += " argumentos.";
+            message += " argumentos";
+            if (argsNames.length > 0) {
+                message += ": ";
+                message += String.join(" ", argsNames);
+            } else {
+                message += ".";
+            }
             throw new ReadCommandException(message);
         }
     }
