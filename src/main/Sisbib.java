@@ -14,7 +14,28 @@ public class Sisbib {
     private List<Copy> copies;
     private ReserveManager reserveManager;
     private LoanManager loanManager;
-    
+    private LoanHistoryManager loanHistoryManager;
+
+    private Sisbib() {
+        state = new EmptyState();
+        users = new ArrayList<IUser>();
+        books = new ArrayList<Book>();
+        copies = new ArrayList<Copy>();
+
+        reserveManager = new ReserveManager();
+        loanManager = new LoanManager();
+        loanHistoryManager = new LoanHistoryManager();
+
+        state.onEnter();
+    }
+
+    public static Sisbib getInstance() {
+        if (instance == null) {
+            instance = new Sisbib();
+        }
+        return instance;
+    }
+
     public void addUser(IUser user) {
         users.add(user);
     }
@@ -70,24 +91,9 @@ public class Sisbib {
     public LoanManager getLoanManager() {
         return loanManager;
     }
-
-    private Sisbib() {
-        state = new EmptyState();
-        users = new ArrayList<IUser>();
-        books = new ArrayList<Book>();
-        copies = new ArrayList<Copy>();
-
-        reserveManager = new ReserveManager();
-        loanManager = new LoanManager();
-
-        state.onEnter();
-    }
-
-    public static Sisbib getInstance() {
-        if (instance == null) {
-            instance = new Sisbib();
-        }
-        return instance;
+    
+    public LoanHistoryManager getLoanHistoryManager() {
+        return loanHistoryManager;
     }
 
     public boolean isInFinalState() {
